@@ -3,7 +3,7 @@ CREATE TABLE UTILISATEUR (
     NOM VARCHAR2(50),
     PRENOM VARCHAR2(50),
     EMAIL VARCHAR2(100) UNIQUE,
-    ROLE VARCHAR2(20) CHECK (ROLE IN ('Admin', 'Professeur', 'Personnel Administratif', 'Étudiant')),
+    ROLE VARCHAR2(20) CHECK (ROLE IN ('Admin', 'Professeur', 'Personnel_Administratif', 'Etudiant')),
     ID_SITE NUMBER REFERENCES SITE(ID_SITE)
 );
 
