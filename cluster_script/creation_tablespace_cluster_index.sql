@@ -1,7 +1,6 @@
 --ATTENTION ICI ORACLE n'accepte que les chemins ABSOLUE pas RELATIF
 --Donc faudra mettre votre chemin absolu
---Pour creer les tablespace faudra pas être sous SYS mais sous le user 
---c##admin_cluster
+
 -- Création des tablespaces
 
 -- Création du tablespace pour les données
@@ -26,20 +25,12 @@ DATAFILE 'H:\Documents\ing2\semestre2\TraitementData\projet_dossier\glpi-databas
 SIZE 100K REUSE
 AUTOEXTEND ON NEXT 100K MAXSIZE 300M;
 
--- Création du tablespace pour site cergy
-DROP TABLESPACE ts_site_cergy INCLUDING CONTENTS AND DATAFILES;
-
-CREATE TABLESPACE ts_site_cergy
-DATAFILE 'H:\Documents\ing2\semestre2\TraitementData\projet_dossier\glpi-database\tablespace\ts_site_cergy.dbf'
+-- Création du tablespace pour les index
+DROP TABLESPACE ts_index INCLUDING CONTENTS AND DATAFILES;
+CREATE TABLESPACE ts_index
+DATAFILE 'H:\Documents\ing2\semestre2\TraitementData\projet_dossier\glpi-database\tablespace\ts_index.dbf'
 SIZE 100K REUSE
 AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
 
--- Création du tablespace pour site Pau
-DROP TABLESPACE ts_site_pau INCLUDING CONTENTS AND DATAFILES;
-
-CREATE TABLESPACE ts_site_pau
-DATAFILE 'H:\Documents\ing2\semestre2\TraitementData\projet_dossier\glpi-database\tablespace\ts_site_pau.dbf'
-SIZE 100K REUSE
-AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
 
 
