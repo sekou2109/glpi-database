@@ -1,0 +1,20 @@
+--ATTENTION ICI ORACLE n'accepte que les chemins ABSOLUE pas RELATIF
+--Donc faudra mettre votre chemin absolu jusqu'au dossier tablespace
+-- Il utiliser ce fichier templace pour creer les tablespace
+
+-- Creation du tablespace pour les donnees
+DROP TABLESPACE ts_donnees INCLUDING CONTENTS AND DATAFILES;
+
+CREATE TABLESPACE ts_donnees
+DATAFILE 'your_path/tablespace/ts_donnees.dbf' 
+SIZE 100K REUSE
+AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
+
+-- Creation du tablespace pour les index
+DROP TABLESPACE ts_index INCLUDING CONTENTS AND DATAFILES;
+
+CREATE TABLESPACE ts_index
+DATAFILE 'your_path/tablespace/ts_index.dbf'
+SIZE 100K REUSE
+AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
+
