@@ -1,0 +1,2 @@
+tablespace/**
+cluster_script/creation_tablespace_cluster_index.sql
