@@ -5,7 +5,7 @@ DROP USER c##admin_cluster;
 DROP ROLE c##role_admin_cluster;
 CREATE USER c##admin_cluster IDENTIFIED BY admin_cluster;
 
--- Création du role et association du role au user toujours en tant que système ou sys
+-- Création du role et association du role au user toujours en tant que system ou sys
 CREATE ROLE c##role_admin_cluster;
 GRANT CONNECT TO c##role_admin_cluster;
 GRANT RESOURCE TO c##role_admin_cluster;
