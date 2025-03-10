@@ -1,16 +1,12 @@
-ALTER USER c##admin_cluster quota unlimited on users;
-ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_DONNEES;
-ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_INDEX;
-ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_LOGS;
-ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_SITE_CERGY;
-ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_SITE_PAU;
+-- A executer que dans sys user
+DROP USER c##admin_cluster;
+DROP ROLE c##role_admin_cluster;
 SELECT TS_DONNEES FROM dba_tablespaces;
 SHOW CON_NAME;
 ALTER SESSION SET CONTAINER = XEPDB1;
 -- Je crée le user admin cluser
 -- Créer le user admin en tant que system
-DROP USER c##admin_cluster;
-DROP ROLE c##role_admin_cluster;
+
 CREATE USER c##admin_cluster IDENTIFIED BY admin_cluster;
 
 -- Création du role et association du role au user toujours en tant que système ou sys
@@ -27,6 +23,12 @@ GRANT SET CONTAINER TO c##role_admin_cluster;
 GRANT CREATE CLUSTER TO c##role_admin_cluste;
 GRANT c##role_admin_cluster TO c##admin_cluster;
 
-
+-- A n'exécuter que dans le user admin et quand les tablespaces sont créés
+ALTER USER c##admin_cluster quota unlimited on users;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_DONNEES;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_INDEX;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_LOGS;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_SITE_CERGY;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_SITE_PAU;
 
 
