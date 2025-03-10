@@ -1,25 +1,35 @@
 /* CREATION DES UTILISATEURS */
-CREATE USER c##hadj identified by hadj;
-CREATE USER c##axel identified by axel;
-CREATE USER c##sekou identified by sekou;
-CREATE USER c##bryan identified by bryan;
+CREATE USER c##patrick IDENTIFIED BY patrick;
+CREATE USER c##senku IDENTIFIED BY senku;
+CREATE USER c##severine IDENTIFIED BY severine;
+CREATE USER c##seb IDENTIFIED BY seb;
+CREATE USER c##theo IDENTIFIED BY theo;
 
-/* AUTORISATION DE BASE */
-GRANT connect,resource TO c##hadj;
-GRANT connect,resource TO c##axel;
-GRANT connect,resource TO c##sekou;
-GRANT connect,resource TO c##bryan;
+/* CREATION DES ROLES */
 
-/* CREATION DES ROLES*/
-CREATE ROLE c##common;
-CREATE ROLE c##usermanager;
+CREATE ROLE c##user;
+CREATE ROLE c##etudiant;
+CREATE ROLE c##prof;
+CREATE ROLE c##personnel;
+CREATE ROLE c##admin;
+CREATE ROLE c##technicien;
 
-/*ATTRIBUTION DES ROLES*/
-GRANT c##common TO c##hadj;
-GRANT c##common TO c##axel;
-GRANT c##common TO c##sekou;
-GRANT c##common TO c##bryan;
-GRANT c##usermanager TO c##bryan;
+/* GESTION DES PERMISSIONS */
+GRANT connect,resource TO c##user;
 
-/* ATTRIBUTION DE PERMISSIONS*/
-GRANT CREATE ROLE, ALTER ANY ROLE TO c##usermanager;
+
+/* ATTRIBUTION DES ROLES */
+GRANT c##user TO c##patrick;
+GRANT c##prof TO c##patrick;
+
+GRANT c##user TO c##senku;
+GRANT c##etudiant TO c##senku;
+
+GRANT c##user TO c##severine;
+GRANT c##personnel TO c##severine;
+
+GRANT c##user TO c##seb;
+GRANT c##technicien TO c##seb;
+
+GRANT c##user TO c##theo;
+GRANT c##admin TO c##theo;
