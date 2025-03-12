@@ -1,3 +1,18 @@
+CREATE USER c##patrick IDENTIFIED BY patrick;
+CREATE USER c##senku IDENTIFIED BY senku;
+CREATE USER c##severine IDENTIFIED BY severine;
+CREATE USER c##seb IDENTIFIED BY seb;
+CREATE USER c##theo IDENTIFIED BY theo;
+
+/* CREATION DES ROLES */
+
+CREATE ROLE c##user;
+CREATE ROLE c##etudiant;
+CREATE ROLE c##prof;
+CREATE ROLE c##personnel;
+CREATE ROLE c##admin;
+CREATE ROLE c##technicien;
+
 -- A executer que dans sys user
 DROP USER c##admin_cluster;
 DROP ROLE c##role_admin_cluster;
