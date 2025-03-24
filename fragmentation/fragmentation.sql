@@ -9,7 +9,7 @@
 
 -- utilisateurs de Cergy
 
-CREATE VIEW utilisateur_cergy ON AS SELECT * FROM utilisateur WHERE id_site=(SELECT id_site FROM site WHERE nom='Cergy');
+CREATE VIEW utilisateur_cergy AS SELECT * FROM utilisateur WHERE id_site=(SELECT id_site FROM site WHERE nom='Cergy');
 
 --utilisateurs de Pau
 
