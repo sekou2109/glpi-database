@@ -43,19 +43,6 @@ DATAFILE 'your_path\glpi-database\tablespace\ts_site_pau.dbf'
 SIZE 100K REUSE
 AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
 
--- Creation des cluster
-
---Cluster entre table utilisateurs et utilisation_materiel
-DROP CLUSTER cluster_utilisation_materiel;
-CREATE CLUSTER cluster_utilisation_materiel (
-    ID_UTILISATEUR NUMBER
-) SIZE 1024 TABLESPACE ts_donnees;
-
---Cluster entre table intervention et materiel
-CREATE CLUSTER cluster_intervention_materiel (
-    ID_MATERIEL NUMBER
-) SIZE 1024 TABLESPACE ts_donnees;
-
 -- CREATION des TABLES
 CREATE TABLE SITE (
     ID_SITE NUMBER PRIMARY KEY,
@@ -112,14 +99,4 @@ CREATE TABLE TECHNICIEN (
     HEURE_FIN_SERVICE VARCHAR2(10),
     ID_SITE NUMBER REFERENCES SITE(ID_SITE)
 )TABLESPACE ts_donnees;
--- index
 
-DROP INDEX idx_cluster_utilisation_materiel;
-
-CREATE INDEX idx_cluster_utilisation_materiel 
-ON CLUSTER cluster_utilisation_materiel TABLESPACE ts_index;
-
-DROP INDEX idx_cluster_intervention_materiel;
-
-CREATE INDEX idx_cluster_intervention_materiel 
-ON CLUSTER cluster_intervention_materiel TABLESPACE ts_index;
