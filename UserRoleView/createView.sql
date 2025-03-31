@@ -1,3 +1,9 @@
+SHOW CON_NAME;
+ALTER SESSION SET CONTAINER = XEPDB1;
+ALTER SESSION SET CONTAINER = CDB$ROOT;
+select table_name from user_tables;
+
+DESC UTILISATEUR;
 CREATE OR REPLACE VIEW v_affectation AS
 SELECT 
     u.idUtilisateur,
@@ -52,14 +58,15 @@ SELECT
 FROM materiel;
 
 -- 4) Vue sur les utilisateurs
+-- voici une modif que j'ai fait pour corriger tout
 CREATE OR REPLACE VIEW v_utilisateurs AS
 SELECT 
-    idUtilisateur,
+    ID_UTILISATEUR,
     nom,
     prenom,
     email,
-    role
-FROM utilisateur;
+    ROLE
+FROM UTILISATEUR;
 
 -- 5) Vue sur les techniciens
 CREATE OR REPLACE VIEW v_techniciens AS
