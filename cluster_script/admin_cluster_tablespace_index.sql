@@ -36,8 +36,8 @@ GRANT CREATE ANY DIRECTORY TO c##role_admin_cluster;
 GRANT ALTER SESSION TO c##role_admin_cluster;
 GRANT SET CONTAINER TO c##role_admin_cluster;
 GRANT CREATE CLUSTER TO c##role_admin_cluster;
+GRANT CREATE VIEW TO c##role_admin_cluster;
 GRANT c##role_admin_cluster TO c##admin_cluster;
-
 -- A n'exécuter que dans le user admin et quand les tablespaces sont créés
 ALTER USER c##admin_cluster quota unlimited on users;
 ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_DONNEES;
