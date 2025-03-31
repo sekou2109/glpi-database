@@ -1,0 +1,9 @@
+DROP SEQUENCE user_id_seq;
+CREATE SEQUENCE user_id_seq
+INCREMENT BY 1
+START WITH 1;
+
+DROP SEQUENCE material_id_seq;
+CREATE SEQUENCE material_id_seq
+INCREMENT BY 1
+START WITH 1;
