@@ -1,2 +1,2 @@
 tablespace/**
-cluster_script/creation_tablespace_cluster_index.sql
+bdd_init_script/tablespace.sql

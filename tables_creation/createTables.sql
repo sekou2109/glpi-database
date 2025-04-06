@@ -5,7 +5,7 @@ CREATE TABLE UTILISATEUR (
     EMAIL VARCHAR2(100) UNIQUE,
     ROLE VARCHAR2(20) CHECK (ROLE IN ('Admin', 'Professeur', 'Personnel_Administratif', 'Etudiant')),
     ID_SITE NUMBER REFERENCES SITE(ID_SITE)
-);
+)CLUSTER cluster_utilisation_materiel (ID_UTILISATEUR);
 
 
 
