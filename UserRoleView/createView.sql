@@ -1,8 +1,3 @@
-SHOW CON_NAME;
-ALTER SESSION SET CONTAINER = XEPDB1;
-ALTER SESSION SET CONTAINER = CDB$ROOT;
-select table_name from user_tables;
-
 DESC UTILISATEUR;
 CREATE OR REPLACE VIEW v_affectation AS
 SELECT 
@@ -14,8 +9,8 @@ SELECT
     m.modele AS modele_materiel,
     um.DATE_UTILISATION AS date_affectation
 FROM utilisateur u
-JOIN utilisation_materiel um ON u.idUtilisateur = um.idUtilisateur
-JOIN materiel m ON um.idMateriel = m.idMateriel;
+JOIN utilisation_materiel um ON u.ID_UTILISATEUR = um.ID_UTILISATEUR
+JOIN materiel m ON um.ID_MATERIEL = m.ID_MATERIEL;
 
 
 
@@ -26,15 +21,15 @@ SELECT
     i.date_demande,
     i.date_fin,
     i.statut,
-    i.DESCRIPTION_INTERVENTION,
+    i.DESCRIPTION,
     m.ID_MATERIEL,
     m.TYPE_MATERIEL AS type_materiel,
     m.MODELE AS modele_materiel,
     t.ID_TECHNICIEN,
     t.COMPETENCES AS competences_technicien
 FROM intervention i
-JOIN materiel m ON i.idMateriel = m.idMateriel
-JOIN technicien t ON i.idTechnicien = t.idTechnicien;
+JOIN materiel m ON i.ID_MATERIEL = m.ID_MATERIEL
+JOIN technicien t ON i.ID_TECHNICIEN = t.ID_TECHNICIEN;
 
 CREATE OR REPLACE VIEW v_interventions_technicien AS
 SELECT
