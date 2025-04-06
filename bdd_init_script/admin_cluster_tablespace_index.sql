@@ -1,18 +1,3 @@
-CREATE USER c##patrick IDENTIFIED BY patrick;
-CREATE USER c##senku IDENTIFIED BY senku;
-CREATE USER c##severine IDENTIFIED BY severine;
-CREATE USER c##seb IDENTIFIED BY seb;
-CREATE USER c##theo IDENTIFIED BY theo;
-
-/* CREATION DES ROLES */
-
-CREATE ROLE c##user;
-CREATE ROLE c##etudiant;
-CREATE ROLE c##prof;
-CREATE ROLE c##personnel;
-CREATE ROLE c##admin;
-CREATE ROLE c##technicien;
-
 -- A executer que dans sys user
 DROP USER c##admin_cluster;
 DROP ROLE c##role_admin_cluster;
@@ -36,8 +21,8 @@ GRANT CREATE ANY DIRECTORY TO c##role_admin_cluster;
 GRANT ALTER SESSION TO c##role_admin_cluster;
 GRANT SET CONTAINER TO c##role_admin_cluster;
 GRANT CREATE CLUSTER TO c##role_admin_cluster;
+GRANT CREATE VIEW TO c##role_admin_cluster;
 GRANT c##role_admin_cluster TO c##admin_cluster;
-
 -- A n'exécuter que dans le user admin et quand les tablespaces sont créés
 ALTER USER c##admin_cluster quota unlimited on users;
 ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_DONNEES;

@@ -1,0 +1,46 @@
+--ATTENTION ICI ORACLE n'accepte que les chemins ABSOLU et non RELATIF
+--Veuillez indiquer le chemin absolu jusqu'au dossier "tablespace"
+--Ce fichier template est destiné à créer les tablespaces dans votre environnement
+--Pour créer les tablespaces, connectez-vous sous l'utilisateur c##admin_cluster (et non SYS)
+-- DEMANDEZ à HADJ si VOUS avez des questions 
+
+-- ETAPE IMPORTANTE : METTRE le CONTAINER PDB à XEPDB1
+SHOW CON_NAME;
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+-- Création du tablespace pour les données
+DROP TABLESPACE ts_donnees INCLUDING CONTENTS AND DATAFILES;
+CREATE TABLESPACE ts_donnees
+DATAFILE 'your_path/glpi-database/tablespace/ts_donnees.dbf'
+SIZE 100K REUSE
+AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
+
+-- Création du tablespace pour les index
+DROP TABLESPACE ts_index INCLUDING CONTENTS AND DATAFILES;
+CREATE TABLESPACE ts_index
+DATAFILE 'your_path/glpi-database/tablespace/ts_index.dbf'
+SIZE 100K REUSE
+AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
+
+-- Création du tablespace pour les logs
+DROP TABLESPACE ts_logs INCLUDING CONTENTS AND DATAFILES;
+CREATE TABLESPACE ts_logs
+DATAFILE 'your_path\glpi-database\tablespace\ts_logs.dbf'
+SIZE 100K REUSE
+AUTOEXTEND ON NEXT 100K MAXSIZE 300M;
+
+-- Création du tablespace pour le site de Cergy
+DROP TABLESPACE ts_site_cergy INCLUDING CONTENTS AND DATAFILES;
+CREATE TABLESPACE ts_site_cergy
+DATAFILE 'your_path\glpi-database\tablespace\ts_site_cergy.dbf'
+SIZE 100K REUSE
+AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
+
+-- Création du tablespace pour le site de Pau
+DROP TABLESPACE ts_site_pau INCLUDING CONTENTS AND DATAFILES;
+CREATE TABLESPACE ts_site_pau
+DATAFILE 'your_path\glpi-database\tablespace\ts_site_pau.dbf'
+SIZE 100K REUSE
+AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
+
+

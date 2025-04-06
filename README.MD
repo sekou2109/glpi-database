@@ -3,10 +3,14 @@
 ## Etape 1 Administration
 Se connecter en tant que sys user et creer le user le role dans le script sql
 Situé dans **cluster_script/admin_cluster_tablespace_index.sql** en exécutant ces parties
-```sql
-ALTER SESSION SET CONTAINER = XEPDB1;
+
+CREATION USER admin qui va être en charge de la création de la bdd init.
+
+Dans le script
 ```
-CREATION USER
+bdd_init_script\admin_cluster_tablespace_index.sql
+```
+Il faudra executez ces commandes
 ```sql
 CREATE USER c##admin_cluster IDENTIFIED BY admin_cluster;
 ```
@@ -41,17 +45,24 @@ GRANT c##role_admin_cluster TO c##admin_cluster;
 
 IMPORTANT:
 
-SE connecter avec c##admin_cluster / mdp:admin_cluster 
+**SE CONNECTER avec c##admin_cluster / mdp:admin_cluster** 
 
-puis executer
+puis executer dans le fichier situé:
 
+```
+utils\utils.sql
+```
 ```sql
 ALTER SESSION SET CONTAINER = XEPDB1;
 ```
-Dans le même dossier cluster_script
-il y a le fichier template: **creation_tablespace_cluster_index.sql.tmpl**
+Dans le dossier bdd_init
+il y a le fichier template: **tablespace.tmpl**
 
-il faut creer le même fichier avec le même nom mais **SANS LE TMPL DANS LE MEME DOSSIER**
+il faut creer le même fichier avec le même nom mais **SANS LE TMPL DANS LE MEME DOSSIER** comme ceci:
+
+```
+tablespace.sql
+```
 Et copier le contenue dans dans le fichier sans tmpl.
 car le fichier est ignoré dans le .gitignore:
 ```sql
@@ -106,8 +117,36 @@ SIZE 100K REUSE
 AUTOEXTEND ON NEXT 100K MAXSIZE 200M;
 ```
 
+Une fois les tablespace créer, revenir sur le fichier:
+
+```
+bdd_init_script\admin_cluster_tablespace_index.sql
+```
+
+**et executez en tant que SYS admin dans le fichier**:
+```
+bdd_init_script\admin_cluster_tablespace_index.sql
+```
+cette suite de code:
+
+```sql
+-- A n'exécuter que dans le user admin et quand les tablespaces sont créés
+ALTER USER c##admin_cluster quota unlimited on users;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_DONNEES;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_INDEX;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_LOGS;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_SITE_CERGY;
+ALTER USER C##admin_cluster QUOTA UNLIMITED ON TS_SITE_PAU;
+```
+
 ## ETAPE 3: Création des clusters
 Toujours en tant que c##admin_cluster
+Dans le fichier:
+
+```
+bdd_init_script\cluster.sql
+```
+Executez les codes suivants:
 ```sql
 --Cluster entre table utilisateurs et utilisation_materiel
 DROP CLUSTER cluster_utilisation_materiel;
@@ -122,6 +161,12 @@ CREATE CLUSTER cluster_intervention_materiel (
 ```
 
 ## ETAPE 4: Création des tables
+
+Dans le fichier
+```
+bdd_init_script\table.sql
+```
+```sql
 CREATE TABLE MATERIEL (
     ID_MATERIEL NUMBER PRIMARY KEY,
     TYPE_MATERIEL VARCHAR2(50),
@@ -159,8 +204,12 @@ CREATE TABLE TECHNICIEN (
     HEURE_DEBUT_SERVICE TIMESTAMP,
     HEURE_FIN_SERVICE TIMESTAMP
 )TABLESPACE ts_donnees;
-
+```
 ## ETAPE 5: Création des index
+Dans le fichier 
+```
+bdd_init_script\index.sql
+```
 
 ```sql
 -- index
@@ -175,4 +224,25 @@ DROP INDEX idx_cluster_intervention_materiel;
 CREATE INDEX idx_cluster_intervention_materiel 
 ON CLUSTER cluster_intervention_materiel TABLESPACE ts_index;
 ```
+
+## ETAPE 6 : Création des roles pour le projet patric etc
+
+Dans le fichier **en tant que SYS admin OBLIGATOIREMENT** 
+et dans le PDB **CDB$ROOT**
+```
+UserRoleView\createUserRole.sql
+```
+faut juste tout executer
+
+## ETAPE 7 : Création des vues
+
+Pareil le fichier:
+```
+UserRoleView\createView.sql
+```
+faut juste tout executer
+
+## Vous êtes à jour normalement si beug ou doute demandez à Hadj
+
+
 

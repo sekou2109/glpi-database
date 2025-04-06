@@ -1,0 +1,53 @@
+SHOW CON_NAME;
+ALTER SESSION SET CONTAINER = XEPDB1;
+-- Optionnel : Nettoyage des tables de test pour éviter des doublons
+DELETE FROM UTILISATION_MATERIEL;
+DELETE FROM MATERIEL;
+DELETE FROM UTILISATEUR;
+DELETE FROM SITE;
+COMMIT;
+
+SELECT TRIGGER_NAME, TRIGGER_TYPE, TRIGGERING_EVENT
+FROM USER_TRIGGERS
+WHERE TABLE_NAME = 'UTILISATION_MATERIEL';
+
+DROP TRIGGER TRG_BEFORE_INSERT_UTILISATION_MATERIEL;
+
+
+
+-- Étape 1 : Création de deux sites
+INSERT INTO SITE (ID_SITE, NOM)
+VALUES (1, 'Cergy');
+
+INSERT INTO SITE (ID_SITE, NOM)
+VALUES (2, 'Pau');
+
+COMMIT;
+
+-- Étape 2 : Création d’un utilisateur avec un rôle défini
+INSERT INTO UTILISATEUR (ID_UTILISATEUR, NOM, PRENOM, EMAIL, ROLE, ID_SITE)
+VALUES (100, 'Dupont', 'Alice', 'alice.dupont@example.com', 'Professeur', 1);
+
+INSERT INTO UTILISATEUR (ID_UTILISATEUR, NOM, PRENOM, EMAIL, ROLE, ID_SITE)
+VALUES (101, 'RABEA', 'hadj', 'hadj.rabea@example.com', 'Etudiant', 2);
+
+COMMIT;
+
+-- Étape 3 : Insertion dans UTILISATION_MATERIEL
+-- Le trigger BEFORE INSERT va insérer dans MATERIEL et renseigner l'ID_MATERIEL
+INSERT INTO UTILISATION_MATERIEL (ID_UTILISATEUR, DATE_UTILISATION)
+VALUES (100, SYSDATE);
+
+INSERT INTO UTILISATION_MATERIEL (ID_UTILISATEUR, DATE_UTILISATION)
+VALUES (101, SYSDATE);
+
+COMMIT;
+ROLLBACK;
+-- Étape 4 : Vérification du matériel créé pour le site 1
+SELECT * FROM MATERIEL WHERE ID_SITE = 1;
+
+-- Étape 5 : Vérification du matériel créé pour le site 2
+SELECT * FROM MATERIEL WHERE ID_SITE = 2;
+
+-- Vérification de l'utilisation du matériel pour l'utilisateur 100
+SELECT * FROM UTILISATION_MATERIEL WHERE ID_UTILISATEUR = 100;
