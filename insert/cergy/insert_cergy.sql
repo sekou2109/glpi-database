@@ -1,58 +1,48 @@
+SHOW CON_NAME;
+ALTER SESSION SET CONTAINER = XEPDB1;
+DROP SEQUENCE seq_utilisateur_cergy
 create sequence seq_utilisateur_cergy start with 1 increment by 1;
 
-declare
-   v_nom    varchar2(50);
-   v_prenom varchar2(50);
-   v_email  varchar2(100);
-   v_role   varchar2(20);
-begin
-   for num in 1..45 loop
-      v_nom := dbms_random.string(
-         'U',
-         dbms_random.value(
-            5,
-            10
-         )
-      );
-      v_prenom := dbms_random.string(
-         'U',
-         dbms_random.value(
-            5,
-            10
-         )
-      );
-      v_email := lower(v_nom
-                       || '.'
-                       || v_prenom
-                       || '@cy-tech.fr');
-      if num <= 2 then
-         v_role := 'Admin';
-      elsif num <= 8 then
-         v_role := 'Professeur';
-      elsif num <= 20 then
-         v_role := 'Personnel_Administratif';
-      else
-         v_role := 'Etudiant';
-      end if;
+DECLARE
+   v_nom    VARCHAR2(50);
+   v_prenom VARCHAR2(50);
+   v_email  VARCHAR2(100);
+   v_role   VARCHAR2(30);
+BEGIN
+   FOR num IN 1..45 LOOP
+      v_nom := dbms_random.string('U', TRUNC(dbms_random.value(5, 10)));
+      v_prenom := dbms_random.string('U', TRUNC(dbms_random.value(5, 10)));
+      v_email := LOWER(v_nom || '.' || v_prenom || '@cy-tech.fr');
 
-      insert into utilisateur (
+      IF num <= 2 THEN
+         v_role := 'Admin';
+      ELSIF num <= 8 THEN
+         v_role := 'Professeur';
+      ELSIF num <= 20 THEN
+         v_role := 'Personnel_Administratif';
+      ELSE
+         v_role := 'Etudiant';
+      END IF;
+
+      INSERT INTO utilisateur (
          id_utilisateur,
          nom,
          prenom,
          email,
          role,
          id_site
-      ) values ( seq_utilisateur_cergy.nextval,
-                 v_nom,
-                 v_prenom,
-                 v_email,
-                 v_role,
-                 1 -- Cergy
-                  );
-   end loop;
+      ) VALUES (
+         seq_utilisateur_cergy.nextval,
+         v_nom,
+         v_prenom,
+         v_email,
+         v_role,
+         1
+      );
+   END LOOP;
 
-   commit;
-end;
+   COMMIT;
+END;
 /
 
 -- Materiel
@@ -86,7 +76,7 @@ begin
       v_etat :=
          case
             when v_prob < 0.2 then
-               'En_panne'
+               'En panne'
             else 'Disponible'
          end;
       v_adresse_ip := '192.168.1.' || seq_materiel_cergy.nextval;
@@ -122,7 +112,7 @@ begin
                0,
                1
             ) < 0.2 then
-               'En_panne'
+               'En panne'
             else 'Disponible'
          end;
       v_quantite := 1;
@@ -157,7 +147,7 @@ begin
                0,
                1
             ) < 0.2 then
-               'En_panne'
+               'En panne'
             else 'Disponible'
          end;
       v_adresse_ip := '192.168.2.' || seq_materiel_cergy.nextval;
@@ -193,7 +183,7 @@ begin
                0,
                1
             ) < 0.2 then
-               'En_panne'
+               'En panne'
             else 'Disponible'
          end;
       v_quantite := 1;
@@ -295,16 +285,16 @@ insert into utilisation_materiel (
    id_utilisateur,
    id_materiel,
    date_utilisation
-) values ( 1,
-           1,
+) values ( 98,
+           78,
            sysdate );
 
 insert into utilisation_materiel (
    id_utilisateur,
    id_materiel,
    date_utilisation
-) values ( 2,
-           2,
+) values ( 99,
+           80,
            sysdate - 5 );
 
 -- L'utilisateur 3 utilise le PC 3 depuis une semaine
@@ -312,8 +302,8 @@ insert into utilisation_materiel (
    id_utilisateur,
    id_materiel,
    date_utilisation
-) values ( 3,
-           3,
+) values ( 100,
+           82,
            sysdate - 7 );
 
 commit;
