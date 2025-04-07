@@ -22,3 +22,8 @@ SELECT username, account_status, created
 FROM dba_users
 WHERE username LIKE 'C##%';
 
+-- voir les tablespaces
+
+SELECT tablespace_name FROM dba_tablespaces;
+
+SELECT tablespace_name, con_id FROM cdb_tablespaces;

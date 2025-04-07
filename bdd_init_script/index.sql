@@ -1,3 +1,5 @@
+SHOW CON_NAME;
+ALTER SESSION SET CONTAINER = XEPDB1;
 -- index
 
 DROP INDEX idx_cluster_utilisation_materiel;

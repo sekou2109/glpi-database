@@ -1,14 +1,17 @@
-CREATE SEQUENCE seq_utilisateur_pau START WITH 1001 INCREMENT BY 1;
+SHOW CON_NAME;
+ALTER SESSION SET CONTAINER = XEPDB1;
+DROP SEQUENCE seq_utilisateur_pau;
+CREATE SEQUENCE seq_utilisateur_pau START WITH 1 INCREMENT BY 1;
 
 DECLARE
    v_nom     VARCHAR2(50);
    v_prenom  VARCHAR2(50);
    v_email   VARCHAR2(100);
-   v_role    VARCHAR2(20);
+   v_role    VARCHAR2(30);
 BEGIN
    FOR num IN 1..44 LOOP
-      v_nom := dbms_random.string('U', dbms_random.value(5, 10));
-      v_prenom := dbms_random.string('U', dbms_random.value(5, 10));
+      v_nom := dbms_random.string('U', TRUNC(dbms_random.value(5, 10)));
+      v_prenom := dbms_random.string('U', TRUNC(dbms_random.value(5, 10)));
       v_email := LOWER(v_nom || '.' || v_prenom || '@cy-tech.fr');
 
       IF num <= 2 THEN
@@ -44,7 +47,7 @@ END;
 
 
 -- Materiel
-CREATE SEQUENCE seq_materiel_pau START WITH 1001 INCREMENT BY 1;
+CREATE SEQUENCE seq_materiel_pau START WITH 1 INCREMENT BY 1;
 
 DECLARE
    v_type_materiel  VARCHAR2(50);
@@ -63,7 +66,7 @@ BEGIN
       v_type_materiel := 'PC_Portable';
       v_modele := 'Laptop-' || dbms_random.string('U', 5);
       v_prob := dbms_random.value(0, 1);
-      v_etat := CASE WHEN v_prob < 0.2 THEN 'En_panne' ELSE 'Disponible' END;
+      v_etat := CASE WHEN v_prob < 0.2 THEN 'En panne' ELSE 'Disponible' END;
       v_adresse_ip := '192.168.1.' || seq_materiel_pau.NEXTVAL;
       v_quantite := 1;
 
@@ -78,7 +81,7 @@ BEGIN
    FOR i IN 1..5 LOOP
       v_type_materiel := 'Imprimante';
       v_modele := 'Printer-' || dbms_random.string('U', 5);
-      v_etat := CASE WHEN dbms_random.value(0,1) < 0.2 THEN 'En_panne' ELSE 'Disponible' END;
+      v_etat := CASE WHEN dbms_random.value(0,1) < 0.2 THEN 'En panne' ELSE 'Disponible' END;
       v_quantite := 1;
 
       INSERT INTO materiel (
@@ -92,7 +95,7 @@ BEGIN
    FOR i IN 1..50 LOOP
       v_type_materiel := 'Ordinateur_Bureau';
       v_modele := 'Desktop-' || dbms_random.string('U', 5);
-      v_etat := CASE WHEN dbms_random.value(0,1) < 0.2 THEN 'En_panne' ELSE 'Disponible' END;
+      v_etat := CASE WHEN dbms_random.value(0,1) < 0.2 THEN 'En panne' ELSE 'Disponible' END;
       v_adresse_ip := '192.168.2.' || seq_materiel_pau.NEXTVAL;
       v_quantite := 1;
 
@@ -107,7 +110,7 @@ BEGIN
    FOR i IN 1..5 LOOP
       v_type_materiel := 'Machine_Cafe';
       v_modele := 'Expresso-' || dbms_random.string('U', 5);
-      v_etat := CASE WHEN dbms_random.value(0,1) < 0.2 THEN 'En_panne' ELSE 'Disponible' END;
+      v_etat := CASE WHEN dbms_random.value(0,1) < 0.2 THEN 'En panne' ELSE 'Disponible' END;
       v_quantite := 1;
 
       INSERT INTO materiel (
@@ -183,13 +186,13 @@ INSERT INTO utilisation_materiel (
    id_utilisateur,
    id_materiel,
    date_utilisation
-) VALUES (4, 4, SYSDATE - 3);
+) VALUES (16, 122, SYSDATE - 3);
 
 INSERT INTO utilisation_materiel (
    id_utilisateur,
    id_materiel,
    date_utilisation
-) VALUES (5, 5, SYSDATE);
+) VALUES (17, 124, SYSDATE);
 
 COMMIT;
 

@@ -1,6 +1,11 @@
+SHOW CON_NAME;
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+SELECT * FROM MATERIEL;
 CREATE DATABASE LINK link_cergy 
-  CONNECT TO glpi_cergy IDENTIFIED BY glpi 
-  USING 'CERGY';
+  CONNECT TO c##cergy IDENTIFIED BY cergy 
+  USING 'XEPDB1';
+SELECT * FROM UTILISATEUR@link_cergy;
 
 -- Fragmentation horizontale : utilisateur_pau
 CREATE VIEW utilisateur_pau AS 
@@ -18,11 +23,15 @@ SELECT id_materiel, etat, quantite
 FROM materiel  
 WHERE id_site = (SELECT id_site FROM site WHERE nom='Pau');
 
+DESCRIBE materiel_maintenance_pau;
+
+SELECT * FROM c##pau.materiel_maintenance_pau@link_pau WHERE ROWNUM <= 1;
+
 -- Technicien Pau (vue matérialisée)
 CREATE MATERIALIZED VIEW LOG ON technicien WITH PRIMARY KEY;
 CREATE MATERIALIZED VIEW technicien_pau REFRESH ON COMMIT FAST AS
 SELECT * FROM technicien 
-WHERE id_site = (SELECT id_site FROM site WHERE nom='Pau');
+WHERE id_site = 2;
 
 -- Fragmentation verticale (locale)
 CREATE VIEW intervention_header AS 
