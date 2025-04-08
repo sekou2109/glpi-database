@@ -9,3 +9,4 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Intervention créée avec ID : ' || v_id_intervention);
 END;
 /
+COMMIT;
