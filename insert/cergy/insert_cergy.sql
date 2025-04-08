@@ -1,6 +1,6 @@
 SHOW CON_NAME;
 ALTER SESSION SET CONTAINER = XEPDB1;
-DROP SEQUENCE seq_utilisateur_cergy
+DROP SEQUENCE seq_utilisateur_cergy;
 create sequence seq_utilisateur_cergy start with 1 increment by 1;
 
 DECLARE
@@ -305,5 +305,21 @@ insert into utilisation_materiel (
 ) values ( 100,
            82,
            sysdate - 7 );
+
+insert into utilisation_materiel (
+   id_utilisateur,
+   id_materiel,
+   date_utilisation
+) values ( 6,
+           2,
+           sysdate );
+insert into utilisation_materiel (
+   id_utilisateur,
+   id_materiel,
+   date_utilisation
+) values (7,
+           4,
+           sysdate );
+
 
 commit;

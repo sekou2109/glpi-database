@@ -38,6 +38,10 @@ GRANT c##technicien TO c##seb;
 GRANT c##user TO c##theo;
 GRANT c##admin TO c##theo;
 
+GRANT CREATE SESSION TO c##cergy;
+GRANT CREATE SEQUENCE TO c##cergy;
+SELECT * FROM DBA_SYS_PRIVS WHERE GRANTEE = 'C##CERGY';
+GRANT DBA TO c##cergy;
 
 GRANT dba TO c##admin;
 DROP USER C##CERGY CASCADE;
