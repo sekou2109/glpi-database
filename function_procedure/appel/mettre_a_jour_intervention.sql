@@ -1,4 +1,5 @@
 BEGIN
-    mettre_a_jour_intervention(<id_intervention>, <'En_cours' ou 'Resolu'>);
+    mettre_a_jour_intervention(1, 'En cours');
 END;
 /
+COMMIT;
